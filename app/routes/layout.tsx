@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { NavLink, useLocation } from "react-router";
+import { NavLink } from "react-router";
 import { Link, Outlet } from "react-router";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -9,6 +9,7 @@ export default function Admin() {
   }
 
   const [data, setData] = useState<User[]>([])
+  const [loading, setLoading] = useState(false);
 
   // get users on mount
   useEffect(() => {
@@ -18,17 +19,20 @@ export default function Admin() {
     } else {
       getUsers();
     }
-  }, [])
+  }, []);
 
   function getUsers(): void {
+    setLoading(true);
     fetch("/api/users")
       .then(res => res.json())
       .then(data => {
         setData(data);
         localStorage.setItem('users', JSON.stringify(data));
+        setLoading(false);
       })
       .catch(err => {
         toast.error("Erreur lors de la récupération des utilisateurs");
+        setLoading(false);
       });
   }
 
@@ -42,10 +46,16 @@ export default function Admin() {
       <div className="bg-gray-800 dark:bg-gray-800 flex flex-row justify-between items-center p-4">
         <h1 className="text-3xl font-bold text-white ">Administration</h1>
         <div className="flex flex-row gap-4">
-          <button onClick={getUsers} className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg p-2">Rafraîchir les données</button>
+          <button onClick={getUsers} className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg p-2">{loading ? "Chargement..." : "Rafraîchir les données"}</button>
           <button onClick={clearUsers} className="bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg p-2">Effacer les utilisateurs</button>
         </div>
       </div>
+
+      {loading && (
+        <div className="flex flex-col items-center justify-center h-full pt-10">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Chargement des utilisateurs...</h1>
+        </div>
+      )}
 
       {data.length > 0 ? (
         <div className="grid grid-cols-8 gap-4 pt-4">
