@@ -69,6 +69,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   Home
                 </NavLink>
                 <NavLink
+                  to="/queues"
+                  className={({ isActive }) => `text-white hover:text-blue-600 dark:hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${ isActive ? 'text-blue-600 dark:text-blue-300 font-semibold' : ''}`}
+                >
+                  Queues
+                </NavLink>
+                <NavLink
                   to="/admin"
                   className={({ isActive }) => `text-white hover:text-blue-600 dark:hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${ isActive ? 'text-blue-600 dark:text-blue-300 font-semibold' : ''}`}
                 >
