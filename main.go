@@ -70,6 +70,7 @@ func main() {
 	e.Pre(middleware.Rewrite(map[string]string{
 		"/admin": "/",
 		"/about": "/",
+		"/queues": "/",
 	}))
 	e.Use(middleware.Recover())
 	e.Use(middleware.Logger())
